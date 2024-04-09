@@ -178,17 +178,17 @@ public class SinglyLinkedList {
 
     //Q. Insert a node in sorted singly linked list
     public void insertNodeInSortedLinkedList(int data){
-            ListNode current = this.head;
-            ListNode newNode = new ListNode(data);
-            while(current.next !=null){
-                if(current.data > data && current.next.data<data) {
-                    newNode.next = current.next;
-                    current.next = newNode;
-                    return;
-                }
+        ListNode current = this.head;
+        ListNode newNode = new ListNode(data);
+        while(current.next !=null){
+            if(current.data > data && current.next.data<data) {
+                newNode.next = current.next;
+                current.next = newNode;
+                return;
             }
-            current.next =  newNode;
-            newNode.next = null;
+        }
+        current.next =  newNode;
+        newNode.next = null;
     }
     public void removeGivenNode(int data){
         ListNode current = this.head;
@@ -261,43 +261,32 @@ public class SinglyLinkedList {
         }
         return sortedListHead.next;
     }
-/*
-Q. Given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order, and
-each of their nodes contains a single digit. Add the two numbers and return the sum as a linked list.
-You may assume the two numbers do not contain any leading zero, except the number 0 itself.
-*/
-    public static ListNode addTwoLists(ListNode list1 , ListNode list2){
-        ListNode sumListHead = new ListNode(0);
-        ListNode tail  = sumListHead;
-        int sum = 0 , carry = 0;
-        while (list1!=null && list2!=null){
-            sum = list1.data+ list2.data+ carry;
-            carry = 0;
-            if(sum>=10){
-                ListNode newNode = new ListNode(sum%10);
-                carry = 1;
-                tail.next = newNode;
-            }else {
-                ListNode newNode = new ListNode(sum);
-                tail.next = newNode;
-            }
-        }
-        if(list1 == null && list2 != null){
-            tail.next = list2;
-            tail.next.data = tail.next.data+carry;
-        } else if ( list2 != null && list2 == null) {
-            tail.next = list1;
-            tail.next.data = tail.next.data+carry;
-        } else if (carry != 0 ){
-            tail.next = new ListNode(carry);
+    /*
+    Q. Given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order, and
+    each of their nodes contains a single digit. Add the two numbers and return the sum as a linked list.
+    You may assume the two numbers do not contain any leading zero, except the number 0 itself.
+    */
+    public static ListNode addTwoLists(ListNode a , ListNode b) {
+        ListNode dummy = new ListNode(0);
+        ListNode tail = dummy;
+        int carry = 0;
+        while (a != null || b != null) {
+            int x = (a != null) ? a.data : 0;
+            int y = (b != null) ? b.data : 0;
+            int sum = carry + x + y;
+            carry = sum / 10;
+            tail.next = new ListNode(sum % 10);
             tail = tail.next;
-            tail.next = null;
+            if (a != null) a = a.next;
+            if (b != null) b = b.next;
         }
+        if (carry > 0) {
+            tail.next = new ListNode(carry);
+        }
+        return dummy.next;
 
-
-        return sumListHead.next;
     }
-    public static void main(String[] args) throws Exception{
+    public static void main (String[]args) throws Exception {
         SinglyLinkedList sll = new SinglyLinkedList();
         sll.head = new ListNode(10);
         ListNode second = new ListNode(1);
@@ -314,15 +303,15 @@ You may assume the two numbers do not contain any leading zero, except the numbe
         System.out.println("Length of linked list is: " + sll.length());
         System.out.println("Inserting 4 at the beginning of the Singly linked list");
         sll.insertAtBeginning(4);
-        System.out.println("New Linked list is: " );
+        System.out.println("New Linked list is: ");
         sll.print();
         System.out.println("Inserting 4 at the end of the Singly linked list");
         sll.insertAtEnd(15);
-        System.out.println("New Linked list is: " );
+        System.out.println("New Linked list is: ");
         sll.print();
         System.out.println("Inserting 21 at 3nd position of the Singly linked list");
-        sll.insertNode(5,9);
-        System.out.println("New Linked list is: " );
+        sll.insertNode(5, 9);
+        System.out.println("New Linked list is: ");
         sll.print();
         System.out.println("Deleting first node of the Singly list list");
         sll.deleteFirstNode();
@@ -333,9 +322,9 @@ You may assume the two numbers do not contain any leading zero, except the numbe
         System.out.println("Singly Linked List after deleting node at index 2 is: ");
         sll.deleteNode(0);
         sll.print();
-        System.out.println("The index of 11 in Singly Linked List is : "+ sll.serach(11));
-        System.out.println("The index of 22 in Singly Linked List is : "+ sll.serach(22));
-        System.out.println("Reversed Linked List is :" );
+        System.out.println("The index of 11 in Singly Linked List is : " + sll.serach(11));
+        System.out.println("The index of 22 in Singly Linked List is : " + sll.serach(22));
+        System.out.println("Reversed Linked List is :");
         sll.reverseList();
         sll.print();
         System.out.println("Middle node is : " + sll.middleNode().data);
@@ -360,13 +349,13 @@ You may assume the two numbers do not contain any leading zero, except the numbe
         sll.print();
         System.out.println("Second sorted linked list is : ");
         list2.print();
-        SinglyLinkedList  mergedSortedLinkedList = new SinglyLinkedList();
+        SinglyLinkedList mergedSortedLinkedList = new SinglyLinkedList();
         mergedSortedLinkedList.head = mergedSortedLinkedList.mergeTwoSortedLists(sll.head, list2.head);
         System.out.println("the merge of both sorted linked list is:");
         mergedSortedLinkedList.print();
         // adding list 1 and list 2
         System.out.println("list1 is : ");
-        sll.print();;
+        sll.print();
         System.out.println("list2 is : ");
         list2.print();
         System.out.println("the addition of the above two linked list is:");

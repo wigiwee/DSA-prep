@@ -86,8 +86,8 @@ public class ArrayUtils {
     public static int findMissingNumber(int[] array ) {
         int n  = array.length+1;
         int arraySum= n*(n+1)/2;
-        for (int i = 0; i < array.length; i++) {
-            arraySum = arraySum- array[i];
+        for (int j : array) {
+            arraySum = arraySum - j;
 
         }
         return arraySum;
