@@ -39,7 +39,9 @@ public class DoublyLinkedList {
             tail = new ListNode(data);
             head = tail;
         }else {
+
             tail.next = new ListNode(data);
+            tail.next.previous = tail;
             tail = tail.next;
         }
         length++;
@@ -79,16 +81,16 @@ public class DoublyLinkedList {
     public ListNode deleteLastNode() throws Exception{
         if(isEmpty()){
             throw new NoSuchElementException();
+        }else {
+            ListNode lastNode = this.tail;
+            tail = tail.previous;
+            tail.next = null;
+
+            lastNode.previous = null;
+            length--;
+            return lastNode;
         }
-        ListNode temp = tail;
-        if(head == tail){
-            head = null;
-        } else {
-            tail.previous.next = null;
-        }
-        tail = tail.previous;
-        temp.previous = null;
-        return temp;
+
     }
 
     public static void main(String[] args) throws Exception{
@@ -111,8 +113,5 @@ public class DoublyLinkedList {
         System.out.println("List after deleting last node is: ");
         dll.deleteLastNode();
         dll.print();
-
-
-
     }
 }
