@@ -1,3 +1,5 @@
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
 public class BinaryTree {
@@ -79,27 +81,37 @@ public class BinaryTree {
 
     //iterative inOrder traversal of binary tree
     public void iterativePostOrder(TreeNode root){
-        Stack<TreeNode> stack = new Stack<>();
-        TreeNode current = root;
-        TreeNode temp;
-        while(current!= null || !stack.isEmpty()){
-            if(current!=null){
-                stack.push(current);
-                current = current.left;
-            }else {
-                temp = stack.peek().right;
-                if(temp == null){
-                    temp = stack.pop();
-                    System.out.print(temp.data+" ");
-                    while (!stack.isEmpty() && temp == stack.peek().right){
-                        temp = stack.pop();
-                        System.out.print(temp.data+" ");
-                    }
-                }else {
-                    current = temp;
-                }
-            }
+        if(root == null) return;
+    }
+
+    public void levelwiseTraversal(TreeNode root){
+        if (root == null) return;
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        TreeNode temp ;
+        while (!queue.isEmpty()){
+            temp = queue.poll();
+            System.out.print(temp.data + " ");
+            if(temp.left!=null) queue.offer(temp.left);
+            if(temp.right!= null) queue.offer(temp.right);
+
         }
+    }
+    public int findMax(TreeNode root){
+        if(root == null) return Integer.MIN_VALUE;
+
+        int result = root.data;
+        int left = findMax(root.left);
+        int right = findMax(root.right);
+        if (left>result){
+            result = left;
+        }
+        if(right> result){
+            result = right;
+        }
+
+        return result;
+
     }
 
 
@@ -126,18 +138,19 @@ public class BinaryTree {
         System.out.println("Inorder traversal");
         binaryTree.inOrder(binaryTree.root);
         System.out.println();
-        System.out.println("Preorder using recursive method:");
+        System.out.println("Preorder using iterative method:");
         binaryTree.iterativePreOrder(binaryTree.root);
         System.out.println();
-        System.out.println("Inorder using recursive method:");
+        System.out.println("Inorder using iterative method:");
         binaryTree.iterativeInOrder(binaryTree.root);
         System.out.println();
-        System.out.println("PostOrder using recursive method:");
+        System.out.println("PostOrder using iterative method:");
         binaryTree.iterativePostOrder(binaryTree.root);
         System.out.println();
-
-
-
+        System.out.println("Level wise Tree traversal: ");
+        binaryTree.levelwiseTraversal(binaryTree.root);
+        System.out.println();
+        System.out.println("Maximum element in binary tree is: " +binaryTree.findMax(binaryTree.root));
 
     }
 }
