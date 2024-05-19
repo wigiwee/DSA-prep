@@ -81,9 +81,7 @@ public class BinarySearchTree {
     binary search tree is valid or not?
      */
     public boolean validateBST(TreeNode root){
-        if(root == null){
-            return false
-        }
+        return false;
     }
     public static void main(String[] args) {
         BinarySearchTree bst = new BinarySearchTree();

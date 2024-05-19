@@ -1,9 +1,7 @@
-package Arrays;
-
-public class Array {
+public class DynamicArray {
     private int[] items;
     private int length;
-    public Array(int initialSize){
+    public DynamicArray(int initialSize){
         this.items = new int[initialSize];
         length = 0;
     }
@@ -80,6 +78,26 @@ public class Array {
         str.append("\b").append("\b");
         str.append(" ]");
         return str.toString();
+
+    }
+
+
+    public static void main(String[] args) {
+        DynamicArray arr = new DynamicArray(2);
+        arr.insert(4);
+        arr.insert(34);
+        arr.insert(56);
+        arr.insert(8);
+        arr.insert(43);
+        System.out.println(arr);
+        arr.removeAt(2);
+        System.out.println(arr);
+        arr.removeAt(2);
+        System.out.println(arr);
+        System.out.println(arr.max());
+        System.out.println(arr.min());
+        arr.reverse();
+        System.out.println(arr);
 
     }
 }
