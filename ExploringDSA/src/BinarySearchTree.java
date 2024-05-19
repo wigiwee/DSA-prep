@@ -1,3 +1,7 @@
+import com.sun.security.jgss.GSSUtil;
+
+import java.util.Stack;
+
 public class BinarySearchTree {
     private TreeNode root;
 
@@ -77,11 +81,32 @@ public class BinarySearchTree {
         }
         return  root;
     }
-    /* Given the root of the binary serach tree check whether the
+    /* Given the root of the binary search tree check whether the
     binary search tree is valid or not?
      */
     public boolean validateBST(TreeNode root){
-        return false;
+        Stack<TreeNode> stack = new Stack<>();
+        stack.push(root);
+        TreeNode temp;
+        while(!stack.isEmpty()){
+            temp = stack.pop();
+            if(temp.left != null ){
+                if(temp.data > temp.left.data){
+                    stack.push(temp.left);
+                }else {
+                    return false;
+                }
+            }
+
+            if(temp.right != null){
+                if(temp.data <= temp.right.data){
+                    stack.push(temp.right);
+                }else {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
     public static void main(String[] args) {
         BinarySearchTree bst = new BinarySearchTree();
@@ -101,7 +126,9 @@ public class BinarySearchTree {
         System.out.println(bst.root.left.data);
         System.out.println(bst.root.right.data);
         System.out.println(bst.search(75));
-        System.out.println(bst.searchRecursively(bst.root, 45).data);
+        System.out.println(bst.searchRecursively(bst.root, 30).data);
+
+        System.out.println("checking whether the bst is valid or not: "+ bst.validateBST(bst.root));
 /*
         long startTime = System.nanoTime();
         bst.insert(63);
