@@ -104,8 +104,30 @@ class Example{
     }
 
 //==================================================================================
+    //Q. Given a row and column (nxn)wise sorted matrix. Write a program to search a
+    //   key in a given matrix
 
+    public void searchInSortedMatrix(int[][] matrix, int n, int key){
+        int i = 0, j = n -1;
+        while(i < n && j >=0){
+            if(matrix[i][j] == key){
+                System.out.println("key found");
+            }
+            if(matrix[i][j] > key){
+                j--;
+            }else {
+                i++;
+            }
+        }
+        System.out.println("Not Found ");
+    }
 
+//==================================================================================
+    public void printMatrixInSpiralForm(int[][] matrix, int m , int n){
+        int i, k=0, l=0;
+        
+
+    }
 //==================================================================================
 
     public static void main(String[] args) {
