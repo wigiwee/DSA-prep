@@ -22,6 +22,28 @@ int indexInsertion(int arr[], int size, int element, int capacity, int index){
     return 1;
 }
 
+int deletion(int arr[], int size, int index){
+    if(index>=size){
+        return -1;
+    }else {
+        int deletedElement = arr[index];
+        for(int i = index; i < size; i++){
+            arr[i] = arr[i+1];
+        }
+        return deletedElement;
+    }
+}
+
+int forceInsertion(int arr[], int element, int size, int index){
+    if(index >= size && index >=0){
+        return -1;
+    }else{
+        int replacedElement = arr[index];
+        arr[index] = element;
+        return replacedElement;
+    }
+}
+
 int main(){
 
     int arr[100] = {1,2,3,4};
@@ -30,6 +52,8 @@ int main(){
     indexInsertion(arr, 4, 12, 100, 3);
     size++;
     display(arr,size);
-    
+    deletion(arr, size, 0);
+    size--;
+    display(arr, size);
     return 0;
 }
