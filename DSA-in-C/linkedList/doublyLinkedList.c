@@ -42,14 +42,14 @@ void printForward(struct node * head, int size){
 
 void printBackward(struct node * head, int size){
     struct node * curr;
-    while(curr->next != NULL){
+        while(curr->next != NULL){
         curr = curr->next;
     }
     printf("%d\n",curr->data);
     printf("NULL->");
     while(curr->prev != NULL){
         printf("%d<=>", curr->data);
-        curr = curr->prev;
+        curr = curr->prev;  
     }
     printf("->NULL\n");
 }
@@ -72,6 +72,22 @@ void insert(struct node * head, int index, int data, int size){
     temp->prev = newNode;
 }
 
+struct node * delete(struct node * head, int index, int size){
+    if(index >= size){
+        printf("Invalid index");
+        return NULL;
+    }
+    struct node * curr = head;
+    for(int i = 1; i< index; i++){
+        curr = curr->next;
+    }
+    struct node * deletedNode = curr->next;
+    curr->next = deletedNode->next;
+    deletedNode->next->prev = curr;
+    deletedNode->next = NULL;
+    deletedNode->prev = NULL;
+    return deletedNode;
+}
 int main(){
 
     struct node head;
@@ -83,6 +99,9 @@ int main(){
     insert(&head, 3, 99, size);
     size++;
     printForward(&head, size);
-    printBackward(&head, size);
+    // printBackward(&head, size);
+    delete(&head, 4, size);
+    size--;
+    printForward(&head, size);
     return 0;
 }
